@@ -1,0 +1,53 @@
+# Compiled class file
+*.class
+
+# JAR files
+*.jar
+*.war
+*.ear
+
+# Package Files #
+*.pkg
+*.rar
+
+# Log files
+*.log
+
+# temp files
+*.tmp
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Project-specific files
+.classpath
+.project
+.settings/
+bin/
+target/
+out/
+
+# Intellij project files
+*.ipr
+*.iws
+*.iml
+.idea/
+
+# Gradle files
+.gradle
+/build
+
+# Maven files
+mvnw
+mvnw.cmd
+/target/
+
+# NetBeans
+/nbproject/
+/build/
+/dist/
+/nbdist/
+/.nb-gradle/
