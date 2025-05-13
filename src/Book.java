@@ -3,6 +3,17 @@ public class Book {
     private String author;
     private float price;
 
+    public Book() {
+        this.title = null;
+        this.author = null;
+    }
+
+    public Book(String title, String author, float price) {
+        this.title = title;
+        this.author = author;
+        this.price = price;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
