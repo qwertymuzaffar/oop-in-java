@@ -2,6 +2,7 @@ public class Employee {
     private String name;
     private int age;
     private double salary;
+    private final byte MONTHS_IN_YEAR = 12;
 
     // Step 2: Create constructors
     // 2.1: Default constructor
@@ -65,7 +66,7 @@ public class Employee {
 
     // Step 5: Create a method to calculate annual salary
     public double calculateAnnualSalary() {
-        return this.salary * 12;
+        return this.salary * MONTHS_IN_YEAR;
     }
 
     // Step 6: Create a method to give a raise
