@@ -29,16 +29,25 @@ public class AnimalFarm {
                     System.out.println("Enter the name of the dog");
                     String dogName = scanner.nextLine();
                     Animal anmlTmp = new Dog(dogName);
+                    System.out.println("Enter what the dog eats");
+                    String dogFood = scanner.nextLine();
+                    anmlTmp.setFood(dogFood);
                     animals[anmlIdx++] = anmlTmp;
                 } else if (animalChoice.equals("2")) {
                     System.out.println("Enter the name of the cat");
                     String catName = scanner.nextLine();
                     Animal anmlTmp = new Cat(catName);
+                    System.out.println("Enter what the cat eats");
+                    String catFood = scanner.nextLine();
+                    anmlTmp.setFood(catFood);
                     animals[anmlIdx++] = anmlTmp;
                 } else if (animalChoice.equals("3")) {
                     System.out.println("Enter the name of the cow");
                     String cowName = scanner.nextLine();
                     Animal anmlTmp = new Cow(cowName);
+                    System.out.println("Enter what the cow eats");
+                    String cowFood = scanner.nextLine();
+                    anmlTmp.setFood(cowFood);
                     animals[anmlIdx++] = anmlTmp;
                 }
             } else {
