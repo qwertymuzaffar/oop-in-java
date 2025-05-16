@@ -1,4 +1,4 @@
-public class Animal {
+public abstract class Animal {
     private String name;
     private String food;
     public Animal(String name) {
@@ -26,16 +26,18 @@ class Dog extends Animal {
         return "Woof";
     }
 }
+
 class Cat extends Animal {
-    public Cat(String name){
+    public Cat(String name) {
         super(name);
     }
     public String sound() {
         return "Meow";
     }
 }
+
 class Cow extends Animal {
-    public Cow(String name){
+    public Cow(String name) {
         super(name);
     }
     public String sound() {
