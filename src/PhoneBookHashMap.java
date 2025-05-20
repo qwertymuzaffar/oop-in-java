@@ -1,5 +1,9 @@
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.TreeMap;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class PhoneBookHashMap {
 
@@ -36,6 +40,8 @@ public class PhoneBookHashMap {
                                 "\n2 to view all the entries" +
                                 "\n3 to search for entries with name" +
                                 "\n4 to delete an entry" +
+                                "\n5 to sort the entries by name" +
+                                "\n6 to write the entries onto a file" +
                                 "\nAny other key to exit");
 
                 // Read the user's choice
@@ -73,7 +79,7 @@ public class PhoneBookHashMap {
                 }
                 // Option 2: View all the entries in the phonebook
                 else if (userAction.equals("2")) {
-                    // Iterate through the HashMap and print all key-value pairs
+                    // Iterate through the phonebook and print all name-number pairs
                     for (String name : phonebook.keySet()) {
                         System.out.println(name + ": " + phonebook.get(name));
                     }
@@ -98,13 +104,32 @@ public class PhoneBookHashMap {
                     System.out.println("Enter the name you want to delete ");
                     String keyName = scanner.nextLine();
                     // Check if the name exists in the phonebook
-
                     if (phonebook.containsKey(keyName)) {
                         // Remove the entry from the HashMap
                         phonebook.remove(keyName);
                         System.out.println("The entry has been removed.");
                     } else {
                         System.out.println("No such name found in the phonebook.");
+                    }
+                }
+                // Option 5: Sort the entries by name
+                else if (userAction.equals("5")) {
+                    // Sort the phoneBook by keys using TreeMap
+                    TreeMap phoneBookTreeMap = new TreeMap<String,String>(phonebook);
+                    for (Object keyName : phoneBookTreeMap.keySet()) {
+                        System.out.println(keyName + ": " + phoneBookTreeMap.get((String)keyName));
+                    }
+                }
+                // Option 6: Write the entries to a text file
+                else if (userAction.equals("6")) {
+                    // Write the Phonebook entries to a file
+                    try (PrintWriter writer = new PrintWriter(new FileWriter("phonebook.txt"))) {
+                        for (String name : phonebook.keySet()) {
+                            writer.println(name + ": " + phonebook.get(name));
+                        }
+                        System.out.println("The entries are written to a file");
+                    } catch (IOException e) {
+                        System.err.println("Error writing to file: " + e.getMessage());
                     }
                 }
                 // Exit the program if the user enters any other key
