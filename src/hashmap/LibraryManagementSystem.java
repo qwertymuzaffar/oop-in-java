@@ -72,7 +72,7 @@ public class LibraryManagementSystem {
 
             // Step 9: Implement the main loop with menu options
             while (true) {
-                System.out.println("\n===== Library Management System =====");
+                System.out.println("\n===== collections.Library Management System =====");
                 System.out.println("1. Add a book");
                 System.out.println("2. View all books");
                 System.out.println("3. Search for a book");
@@ -145,7 +145,7 @@ public class LibraryManagementSystem {
                     if (library.isEmpty()) {
                         System.out.println("The library is empty!");
                     } else {
-                        System.out.println("\n===== Library Catalog =====");
+                        System.out.println("\n===== collections.Library Catalog =====");
                         for (Map.Entry<String, Book> entry : library.entrySet()) {
                             System.out.println("ISBN: " + entry.getKey() + ", " + entry.getValue());
                         }
@@ -274,7 +274,7 @@ public class LibraryManagementSystem {
 
                 // Option 6: Exit
                 else if (choice.equals("6")) {
-                    System.out.println("Thank you for using the Library Management System!");
+                    System.out.println("Thank you for using the collections.Library Management System!");
                     break;
                 }
                 else {

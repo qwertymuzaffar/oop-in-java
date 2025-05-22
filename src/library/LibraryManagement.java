@@ -22,7 +22,7 @@ public class LibraryManagement {
         boolean running = true;
         while (running) {
             // Display menu options
-            System.out.println("\n===== Library Management System =====");
+            System.out.println("\n===== collections.Library Management System =====");
             System.out.println("1. Add a book");
             System.out.println("2. View all books");
             System.out.println("3. Search for a book by title");
@@ -73,7 +73,7 @@ public class LibraryManagement {
                     break;
 
                 case 8: // Exit
-                    System.out.println("Thank you for using the Library Management System. Goodbye!");
+                    System.out.println("Thank you for using the collections.Library Management System. Goodbye!");
                     running = false;
                     break;
 
@@ -116,7 +116,7 @@ public class LibraryManagement {
 
     // Step 7: Implement the viewAllBooks functionality
     private static void viewAllBooks(ArrayList<Book> library) {
-        System.out.println("\n----- All Books in Library -----");
+        System.out.println("\n----- All Books in collections.Library -----");
 
         if (library.isEmpty()) {
             System.out.println("The library is empty.");
