@@ -72,7 +72,7 @@ public class LibraryManagementSystem {
 
             // Step 9: Implement the main loop with menu options
             while (true) {
-                System.out.println("\n===== collections.Library Management System =====");
+                System.out.println("\n===== Library Management System =====");
                 System.out.println("1. Add a book");
                 System.out.println("2. View all books");
                 System.out.println("3. Search for a book");

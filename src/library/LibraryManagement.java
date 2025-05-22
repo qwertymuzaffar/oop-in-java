@@ -22,7 +22,7 @@ public class LibraryManagement {
         boolean running = true;
         while (running) {
             // Display menu options
-            System.out.println("\n===== collections.Library Management System =====");
+            System.out.println("\n===== Library Management System =====");
             System.out.println("1. Add a book");
             System.out.println("2. View all books");
             System.out.println("3. Search for a book by title");
