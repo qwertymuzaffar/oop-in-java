@@ -1,7 +1,9 @@
 package date;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZonedDateTime;
 
 public class DateTimePrinter {
 
@@ -13,5 +15,9 @@ public class DateTimePrinter {
         // Print the current time to the console
         // LocalTime.now() retrieves the current time from the system clock
         System.out.println("The time is " + LocalTime.now());
+
+        System.out.println("The Local Date Time is " + LocalDateTime.now());
+
+        System.out.println("Zoned Local Date Time is " + ZonedDateTime.now());
     }
 }
