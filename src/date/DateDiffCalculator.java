@@ -39,43 +39,53 @@ public class DateDiffCalculator {
 
     // Main method, the entry point of the program
     public static void main(String s[]) {
-        // Get the current date
-        LocalDate todayDate = LocalDate.now();
-
-        // Define a date formatter for the "dd/MM/yyyy" format
-        DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-        // Print the current date in the specified format
-        System.out.println("\nThe date is " + todayDate.format(dateformat));
-
         // Create a Scanner object to read user input
         Scanner scanner = new Scanner(System.in);
 
-        // Prompt the user to input a date in the "dd/MM/yyyy" format
-        System.out.println("Input the date in dd/MM/yyyy format");
-        String rawDate = scanner.nextLine();
+        // Prompt the user to enter the date format they want to use (e.g., dd/MM/yyyy)
+        System.out.println("Enter the format in which you want to feed the dates in:");
+        String dateFormatStr = scanner.nextLine();
 
-        // Try to parse the user input into a LocalDate object
+        // Create a DateTimeFormatter object using the user-provided format
+        DateTimeFormatter dateformat = DateTimeFormatter.ofPattern(dateFormatStr);
+
+        // Try to parse the user input into LocalDate objects
         try {
-            LocalDate givenDate = LocalDate.parse(rawDate, dateformat);
+            // Prompt the user to input the first date in the specified format
+            System.out.println("Input the date in " + dateFormatStr + " format:");
+            String rawDate1 = scanner.nextLine();
+            // Parse the input into a LocalDate object
+            LocalDate givenDate1 = LocalDate.parse(rawDate1, dateformat);
 
-            // Print the given date in the specified format
-            System.out.println("\nThe given date is " + givenDate.format(dateformat));
+            // Prompt the user to input the second date in the specified format
+            System.out.println("Input another date in " + dateFormatStr + " format:");
+            String rawDate2 = scanner.nextLine();
+            // Parse the input into a LocalDate object
+            LocalDate givenDate2 = LocalDate.parse(rawDate2, dateformat);
 
-            // Check if the given date is the same as the current date
-            if (givenDate.isEqual(todayDate)) {
+            // Print the first date in the specified format
+            System.out.println("\nThe given date is " + givenDate1.format(dateformat));
+
+            // Print the second date in the specified format
+            System.out.println("\nThe other given date is " + givenDate2.format(dateformat));
+
+            // Check if the two dates are the same
+            if (givenDate1.isEqual(givenDate2)) {
                 System.out.println("Both dates are the same");
             } else {
-                // If the given date is before the current date, calculate the difference
-                if (givenDate.isBefore(todayDate)) {
-                    System.out.println(getDiff(givenDate, todayDate));
+                // If the first date is before the second date, calculate the difference
+                if (givenDate1.isBefore(givenDate2)) {
+                    System.out.println(getDiff(givenDate1, givenDate2));
                 } else {
-                    // If the given date is after the current date, calculate the difference
-                    System.out.println(getDiff(todayDate, givenDate));
+                    // If the first date is after the second date, calculate the difference
+                    System.out.println(getDiff(givenDate2, givenDate1));
                 }
             }
         } catch (DateTimeParseException dte) {
             // Handle invalid date format input
+            System.out.println("Invalid input. Please try again!");
+        } catch (Exception e) {
+            //Handle any other exception such as unknown formats
             System.out.println("Invalid input. Please try again!");
         }
     }
