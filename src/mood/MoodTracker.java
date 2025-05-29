@@ -79,7 +79,50 @@ public class MoodTracker {
                         System.out.println("The mood is not valid");
                     }
                     continue;
-                case "d":    //add code to delete mood
+                case "d":
+                    System.out.println("Enter '1' to delete all moods by date\n"+
+                            "Enter '2' to delete a specific mood");
+                    String deleteVariant = scanner.nextLine();
+                    if(deleteVariant.equals("1")) {
+                        try {
+                            System.out.println("Input the date in MM/dd/yyyy format:");
+                            String moodDateStr = scanner.nextLine();
+                            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+                            LocalDate moodDate = LocalDate.parse(moodDateStr, dateFormatter);
+                            boolean areMoodsDeleted = deleteMoods(moodDate, moodsList);
+                            if(areMoodsDeleted) {
+                                System.out.println("The moods have been deleted");
+                            } else {
+                                System.out.println("No matching moods found");
+                            }
+                        } catch (DateTimeParseException dfe) {
+                            System.out.println("Incorrect format of date. Cannot delete mood.");
+                            continue;
+                        }
+                    } else if (deleteVariant.equals("2")) {
+                        try {
+                            System.out.println("Enter the mood name");
+                            moodName = scanner.nextLine();
+                            System.out.println("Input the date in MM/dd/yyyy format:");
+                            String moodDateStr = scanner.nextLine();
+                            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+                            LocalDate moodDate = LocalDate.parse(moodDateStr, dateFormatter);
+                            System.out.println("Input the time in HH:mm:ss format:");
+                            String moodTimeStr = scanner.nextLine();
+                            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+                            LocalTime moodTime = LocalTime.parse(moodTimeStr, timeFormatter);
+                            Mood delMood = new Mood(moodName, moodDate, moodTime);
+                            boolean isMoodDeleted = deleteMood(delMood, moodsList);
+                            if(isMoodDeleted) {
+                                System.out.println("The mood has been deleted");
+                            } else {
+                                System.out.println("No matching mood found");
+                            }
+                        } catch (DateTimeParseException dfe) {
+                            System.out.println("Incorrect format of date or time. Cannot delete mood.");
+                            continue;
+                        }
+                    }
                     continue;
                 case "e":    //add code to edit mood
                     continue;
@@ -106,6 +149,27 @@ public class MoodTracker {
             }
         }
         return true;
+    }
+
+    public static boolean deleteMoods(LocalDate moodDate, ArrayList<Mood> moodsList) {
+        boolean removed = false;
+        for(Mood tempMood: moodsList) {
+            if (tempMood.getDate().equals(moodDate)) {
+                moodsList.remove(tempMood);
+                removed = true;
+            }
+        }
+        return removed;
+    }
+
+    public static boolean deleteMood(Mood mood, ArrayList<Mood> moodsList) {
+        for(Mood tempMood: moodsList) {
+            if (tempMood.equals(mood)) {
+                moodsList.remove(tempMood);
+                return true;
+            }
+        }
+        return false;
     }
 
 
