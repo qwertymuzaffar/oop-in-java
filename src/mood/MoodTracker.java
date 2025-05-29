@@ -156,7 +156,40 @@ public class MoodTracker {
                         continue;
                     }
                     continue;
-                case "s":    //add code to search mood
+                case "s":
+                    System.out.println("Enter '1' to search for all moods by date\n"+
+                            "Enter '2' to search for a specific mood");
+                    String searchVariant = scanner.nextLine();
+                    if(searchVariant.equals("1")) {
+                        try {
+                            System.out.println("Input the date in MM/dd/yyyy format:");
+                            String moodDateStr = scanner.nextLine();
+                            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+                            LocalDate moodDate = LocalDate.parse(moodDateStr, dateFormatter);
+                            searchMoods(moodDate, moodsList);
+                        } catch (DateTimeParseException dfe) {
+                            System.out.println("Incorrect format of date. Cannot search mood.");
+                            continue;
+                        }
+                    } else if (searchVariant.equals("2")) {
+                        try {
+                            System.out.println("Enter the mood name");
+                            moodName = scanner.nextLine();
+                            System.out.println("Input the date in MM/dd/yyyy format:");
+                            String moodDateStr = scanner.nextLine();
+                            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+                            LocalDate moodDate = LocalDate.parse(moodDateStr, dateFormatter);
+                            System.out.println("Input the time in HH:mm:ss format:");
+                            String moodTimeStr = scanner.nextLine();
+                            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+                            LocalTime moodTime = LocalTime.parse(moodTimeStr, timeFormatter);
+                            Mood delMood = new Mood(moodName, moodDate, moodTime);
+                            searchMood(delMood, moodsList);
+                        } catch (DateTimeParseException dfe) {
+                            System.out.println("Incorrect format of date or time. Cannot search mood.");
+                            continue;
+                        }
+                    }
                     continue;
                 case "M":    //add code to get all moods
                     continue;
@@ -212,5 +245,30 @@ public class MoodTracker {
         return false;
     }
 
+    public static void searchMoods(LocalDate moodDate, ArrayList<Mood> moodsList) {
+        boolean found = false;
+        for(Mood tempMood: moodsList) {
+            if (tempMood.getDate().equals(moodDate)) {
+                found = true;
+                System.out.println(tempMood);
+            }
+        }
+        if(!found) {
+            System.out.println("No matching records could be found!");
+        }
+    }
+
+    public static void searchMood(Mood mood, ArrayList<Mood> moodsList) {
+        boolean found = false;
+        for(Mood tempMood: moodsList) {
+            if (tempMood.equals(mood)) {
+                found = true;
+                System.out.println(tempMood);
+            }
+        }
+        if(!found) {
+            System.out.println("No matching records could be found!");
+        }
+    }
 
 }
