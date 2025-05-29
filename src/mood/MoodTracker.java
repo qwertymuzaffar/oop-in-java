@@ -124,7 +124,37 @@ public class MoodTracker {
                         }
                     }
                     continue;
-                case "e":    //add code to edit mood
+                case "e":
+                    Mood moodToEdit = null;
+                    try {
+                        System.out.println("Enter the mood name");
+                        moodName = scanner.nextLine();
+                        System.out.println("Input the date in MM/dd/yyyy format:");
+                        String moodDateStr = scanner.nextLine();
+                        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+                        LocalDate moodDate = LocalDate.parse(moodDateStr, dateFormatter);
+                        System.out.println("Input the time in HH:mm:ss format:");
+                        String moodTimeStr = scanner.nextLine();
+                        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+                        LocalTime moodTime = LocalTime.parse(moodTimeStr, timeFormatter);
+                        System.out.println("Add new notes about this mood");
+                        String moodNotes = scanner.nextLine();
+                        if(moodNotes.strip().equalsIgnoreCase("")) {
+                            System.out.println("No notes entered");
+                            continue;
+                        } else {
+                            moodToEdit = new Mood(moodName, moodDate, moodTime, moodNotes);
+                            boolean isMoodEdited = editMood(moodToEdit, moodsList);
+                            if(isMoodEdited) {
+                                System.out.println("The mood has been successfully edited");
+                            } else {
+                                System.out.println("No matching mood could be found");
+                            }
+                        }
+                    } catch (DateTimeParseException dfe) {
+                        System.out.println("Incorrect format of date or time. Cannot create mood.");
+                        continue;
+                    }
                     continue;
                 case "s":    //add code to search mood
                     continue;
@@ -166,6 +196,16 @@ public class MoodTracker {
         for(Mood tempMood: moodsList) {
             if (tempMood.equals(mood)) {
                 moodsList.remove(tempMood);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean editMood(Mood moodToEdit, ArrayList<Mood> moodsList) {
+        for(Mood tempMood: moodsList) {
+            if (tempMood.equals(moodToEdit)) {
+                tempMood.setNotes(moodToEdit.getNotes());
                 return true;
             }
         }
