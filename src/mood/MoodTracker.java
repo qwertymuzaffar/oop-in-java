@@ -191,7 +191,10 @@ public class MoodTracker {
                         }
                     }
                     continue;
-                case "M":    //add code to get all moods
+                case "M":
+                    for(Mood moodObj: moodsList) {
+                        System.out.println(moodObj);
+                    }
                     continue;
                 case "w":    //add code to write mood to a file
                     continue;
