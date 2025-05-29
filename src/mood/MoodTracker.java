@@ -1,5 +1,9 @@
 package mood;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,6 +14,11 @@ public class MoodTracker {
     public MoodTracker() {
         this.moodsList = new ArrayList<>();
         this.scanner = new Scanner(System.in);
+    }
+
+    public static void main(String s[]) {
+        MoodTracker moodTracker = new MoodTracker();
+        moodTracker.run();
     }
 
     public void run() {
@@ -23,7 +32,52 @@ public class MoodTracker {
                     "Type 'Exit' to exit");
             String menuOption = scanner.nextLine();
             switch (menuOption) {
-                case "a":    //add code to add mood
+                case "a":
+                    System.out.println("Enter the mood name");
+                    String moodName = scanner.nextLine();
+                    System.out.println("Are you tracking the mood for a current day? y/n");
+                    String isForCurrentDate = scanner.nextLine();
+                    Mood moodToAdd = null;
+                    if(isForCurrentDate.equalsIgnoreCase("n")) {
+                        try {
+                            System.out.println("Input the date in MM/dd/yyyy format:");
+                            String moodDateStr = scanner.nextLine();
+                            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+                            LocalDate moodDate = LocalDate.parse(moodDateStr, dateFormatter);
+                            System.out.println("Input the time in HH:mm:ss format:");
+                            String moodTimeStr = scanner.nextLine();
+                            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+                            LocalTime moodTime = LocalTime.parse(moodTimeStr, timeFormatter);
+                            System.out.println("Add notes about this mood");
+                            String moodNotes = scanner.nextLine();
+                            if(moodNotes.strip().equalsIgnoreCase("")) {
+                                moodToAdd = new Mood(moodName, moodDate, moodTime);
+                            } else {
+                                moodToAdd = new Mood(moodName, moodDate, moodTime, moodNotes);
+                            }
+                        } catch (DateTimeParseException dfe) {
+                            System.out.println("Incorrect format of date or time. Cannot create mood.\n"+dfe);
+                            continue;
+                        }
+                    } else {
+                        System.out.println("Add notes about this mood");
+                        String moodNotes = scanner.nextLine();
+                        if(moodNotes.strip().equalsIgnoreCase("")) {
+                            moodToAdd = new Mood(moodName);
+                        } else {
+                            moodToAdd = new Mood(moodName, moodNotes);
+                        }
+                    }
+                    try {
+                        boolean isValid = isMoodValid(moodToAdd, moodsList);
+                        if(isValid) {
+                            moodsList.add(moodToAdd);
+                            System.out.println("The mood has been added to the tracker");
+                            continue;
+                        }
+                    } catch(InvalidMoodException ime) {
+                        System.out.println("The mood is not valid");
+                    }
                     continue;
                 case "d":    //add code to delete mood
                     continue;
@@ -45,8 +99,14 @@ public class MoodTracker {
         }
     }
 
-    public static void main(String s[]) {
-        MoodTracker moodTracker = new MoodTracker();
-        moodTracker.run();
+    public static boolean isMoodValid(Mood mood, ArrayList<Mood> moodsList) throws InvalidMoodException {
+        for(Mood tempMood: moodsList) {
+            if (tempMood.equals(mood)) {
+                throw new InvalidMoodException();
+            }
+        }
+        return true;
     }
+
+
 }
