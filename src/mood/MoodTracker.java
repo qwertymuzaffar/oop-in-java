@@ -1,5 +1,8 @@
 package mood;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -196,7 +199,15 @@ public class MoodTracker {
                         System.out.println(moodObj);
                     }
                     continue;
-                case "w":    //add code to write mood to a file
+                case "w":
+                    try (PrintWriter writer = new PrintWriter(new FileWriter("Moods.txt"))) {
+                        for (Mood mood : moodsList) {
+                            writer.println(mood+"\n\n");
+                        }
+                        System.out.println("The entries are written to a file");
+                    } catch (IOException e) {
+                        System.err.println("Error writing to file: " + e.getMessage());
+                    }
                     continue;
                 case "Exit":
                     System.out.println("Thank you for using the MoodTracker. Goodbye!");
